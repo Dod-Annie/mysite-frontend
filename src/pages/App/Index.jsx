@@ -18,6 +18,8 @@ const Home = () => {
         <Menu.Item key="2">Vue</Menu.Item>
         <Menu.Item key="3">Go</Menu.Item>
         <Menu.Item key="4">LOL</Menu.Item>
+        <Menu.Item key="5">Guitar</Menu.Item>
+        <Menu.Item key="6">Science Fiction</Menu.Item>
       </Menu>
     </Header>
     <Content style={{ padding: '0 50px' }}>
