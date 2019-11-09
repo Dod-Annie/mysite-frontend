@@ -2,6 +2,7 @@ import React from 'react'
 import ReactCanvasNest from 'react-canvas-nest';
 import { Form, Icon, Input, Button, Checkbox, message } from 'antd'
 import './login.css'
+import api from '../apis'
 
 
 class NormalLoginForm extends React.Component {
@@ -13,6 +14,9 @@ class NormalLoginForm extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values)
+        api.user.login(values).then(res => {
+          console.log(res, 'ress')
+        })
         this.setState({ loading: true })
       }
     })
@@ -24,7 +28,7 @@ class NormalLoginForm extends React.Component {
       <Form onSubmit={this.handleSubmit} className="login-form">
         <h1 className="login">登录</h1>
         <Form.Item>
-          {getFieldDecorator('userName', {
+          {getFieldDecorator('username', {
             rules: [{ required: true, message: '请输入您的账号!' }]
           })(
             <Input
@@ -34,7 +38,7 @@ class NormalLoginForm extends React.Component {
           )}
         </Form.Item>
         <Form.Item>
-          {getFieldDecorator('password', {
+          {getFieldDecorator('pwd', {
             rules: [{ required: true, message: '请输入您的密码!' }]
           })(
             <Input
@@ -49,9 +53,7 @@ class NormalLoginForm extends React.Component {
             valuePropName: 'checked',
             initialValue: true
           })(<Checkbox>记住我</Checkbox>)}
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
           <a className="login-form-forgot" href="">
             忘记密码
           </a>
