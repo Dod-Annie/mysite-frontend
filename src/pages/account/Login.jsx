@@ -2,8 +2,7 @@ import React from 'react'
 import ReactCanvasNest from 'react-canvas-nest';
 import { Form, Icon, Input, Button, Checkbox, message } from 'antd'
 import './login.css'
-import api from '../apis'
-
+import api from '../../apis'
 
 class NormalLoginForm extends React.Component {
   state = {
@@ -11,13 +10,22 @@ class NormalLoginForm extends React.Component {
   }
   handleSubmit = e => {
     e.preventDefault()
+    this.setState({ loading: true })
+
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values)
         api.user.login(values).then(res => {
-          console.log(res, 'ress')
+          if (res.code !== 200) {
+            message.error(res.message)
+          } else {
+            message.success("登录成功")
+          }
+        }).catch(e => {
+          message.error(e.message)
+        }).finally(() => {
+          this.setState({ loading: false })
         })
-        this.setState({ loading: true })
       }
     })
   }
@@ -65,7 +73,10 @@ class NormalLoginForm extends React.Component {
           >
             登录
           </Button>
-          <a href="">没有账号 现在注册</a>
+          <a onClick={() => {
+            console.log('this.p', this.props)
+            // this.props.history.push('regist')
+          }}>没有账号 现在注册</a>
         </Form.Item>
       </Form>
     )
@@ -80,7 +91,7 @@ const WrappedNormalLoginForm = Form.create({ name: 'normal_login' })(
 const Login = () => {
   return <div className="md-warp">
     <WrappedNormalLoginForm />
-    <ReactCanvasNest className='canvasNest' config={{ pointColor: ' 255, 255, 255 ' }} style={{ zIndex: 0 }} />
+    <ReactCanvasNest className='canvasNest' config={{ pointColor: "#1DA57A" }} style={{ zIndex: 0 }} />
   </div>
 }
 

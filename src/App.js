@@ -1,14 +1,18 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom'
-import Login from './pages/Login'
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
+import Login from './pages/account/Login'
+import Regist from './pages/account/Regist'
 import HomePage from './pages/App/Index'
 function App() {
   return (
     <div className="App">
       <Router>
         <div>
-          <Route exact path="/" exact component={HomePage} />
+          <Route exact path="/" render={() =>
+            <Redirect to='/login'></Redirect>}>
+          </Route> />
           <Route path="/login" component={Login} />
+          <Route path="/regist" component={Regist} />
         </div>
       </Router>
     </div>

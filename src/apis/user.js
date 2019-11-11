@@ -12,7 +12,7 @@ export const login = data => {
 //注册
 export const regist = data => {
   return request({
-    url: '/regist',
+    url: '/user/regist',
     method: 'POST',
     data
   })

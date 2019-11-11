@@ -1,11 +1,12 @@
 import axios from 'axios'
+import { is } from 'immutable'
 // import config from '../config'
 // import { store } from '../NextApp'
 // import Loaing from '../components/Loading'
 
 var defaultHeaders = {
-  Accept: 'application/x-www-form-urlencoded',
-  'Content-Type': 'application/x-www-form-urlencoded',
+  Accept: 'application/json',
+  'Content-Type': 'application/json',
   'Access-Control-Allow-Credentials': '*'
 }
 
@@ -43,10 +44,11 @@ export default ({
       if (res.status >= 200 && res.status < 300) {
         return res.data
       }
-
       return Promise.reject(res)
     })
-    .then(({ code, message, data }) => {
+    .then((response) => {
+      let { code, message, data } = response
+      if (!data) return response
       if (code === 10000) {
         if (data && data.status && data.status === 401) {
           return Promise.reject({ code: 401, message: '登录失效，请重新登录' })
