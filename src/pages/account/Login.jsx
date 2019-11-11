@@ -10,10 +10,9 @@ class NormalLoginForm extends React.Component {
   }
   handleSubmit = e => {
     e.preventDefault()
-    this.setState({ loading: true })
-
     this.props.form.validateFields((err, values) => {
       if (!err) {
+        this.setState({ loading: true })
         console.log('Received values of form: ', values)
         api.user.login(values).then(res => {
           if (res.code !== 200) {

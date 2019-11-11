@@ -10,11 +10,9 @@ class NormalLoginForm extends React.Component {
   }
   handleSubmit = e => {
     e.preventDefault()
-    this.setState({ loading: true })
-
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log(values, 'value')
+        this.setState({ loading: true })
         let { username, pwd, verifyInput } = values
         api.verify.checkVerify(verifyInput).then(res => {
           if (!res) {
