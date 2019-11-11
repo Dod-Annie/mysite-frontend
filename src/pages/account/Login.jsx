@@ -20,6 +20,7 @@ class NormalLoginForm extends React.Component {
             message.error(res.message)
           } else {
             message.success("登录成功")
+            this.props.history.push('/home')
           }
         }).catch(e => {
           message.error(e.message)
@@ -75,7 +76,7 @@ class NormalLoginForm extends React.Component {
           </Button>
           <a onClick={() => {
             console.log('this.p', this.props)
-            // this.props.history.push('regist')
+            this.props.history.push('/regist')
           }}>没有账号 现在注册</a>
         </Form.Item>
       </Form>
@@ -88,9 +89,9 @@ const WrappedNormalLoginForm = Form.create({ name: 'normal_login' })(
 )
 
 
-const Login = () => {
+const Login = props => {
   return <div className="md-warp">
-    <WrappedNormalLoginForm />
+    <WrappedNormalLoginForm  {...props} />
     <ReactCanvasNest className='canvasNest' config={{ pointColor: "#1DA57A" }} style={{ zIndex: 0 }} />
   </div>
 }

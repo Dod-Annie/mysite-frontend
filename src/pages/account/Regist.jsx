@@ -23,7 +23,8 @@ class NormalLoginForm extends React.Component {
             return
           }
           api.user.regist({ username, pwd }).then(res => {
-            message.success("注册成功!")
+            message.success("注册成功!请登录")
+            this.props.history.push('/login')
           }).catch(e => {
             message.error(e.message)
           }).finally(() => {
@@ -51,7 +52,7 @@ class NormalLoginForm extends React.Component {
         </Form.Item>
         <Form.Item>
           {getFieldDecorator('pwd', {
-            rules: [{ required: true, message: '请设置您的密码!' }]
+            rules: [{ required: true, message: '请设置您的密码!' }, { min: 8, message: '密码长度不能小于8位!' }]
           })(
             <Input
               prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
@@ -83,7 +84,7 @@ class NormalLoginForm extends React.Component {
           >
             注册
           </Button>
-          <a href="">已有账号 现在登录</a>
+          <a onClick={() => this.props.history.push('/login')}>已有账号 现在登录</a>
         </Form.Item>
       </Form>
     )
@@ -95,9 +96,9 @@ const WrappedNormalLoginForm = Form.create({ name: 'normal_login' })(
 )
 
 
-const Login = () => {
+const Login = props => {
   return <div className="md-warp">
-    <WrappedNormalLoginForm />
+    <WrappedNormalLoginForm {...props} />
     <ReactCanvasNest className='canvasNest' config={{ pointColor: "#1DA57A" }} style={{ zIndex: 0 }} />
   </div>
 }

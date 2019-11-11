@@ -11,6 +11,7 @@ function App() {
           <Route exact path="/" render={() =>
             <Redirect to='/login'></Redirect>}>
           </Route> />
+          <Route path="/home" component={HomePage} />
           <Route path="/login" component={Login} />
           <Route path="/regist" component={Regist} />
         </div>
