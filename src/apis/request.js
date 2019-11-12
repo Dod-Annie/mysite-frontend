@@ -48,13 +48,7 @@ export default ({
     })
     .then((response) => {
       let { code, message, data } = response
-      if (!data) return response
-      if (code === 10000) {
-        if (data && data.status && data.status === 401) {
-          return Promise.reject({ code: 401, message: '登录失效，请重新登录' })
-        }
-        return data
-      }
+      if (!data && !code && !message) return response
       return Promise.reject({ code, message })
     })
     .catch(err => {

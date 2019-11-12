@@ -10,7 +10,7 @@ function App() {
         <div>
           <Route exact path="/" render={() =>
             <Redirect to='/login'></Redirect>}>
-          </Route> />
+          </Route>
           <Route path="/home" component={HomePage} />
           <Route path="/login" component={Login} />
           <Route path="/regist" component={Regist} />

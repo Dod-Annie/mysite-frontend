@@ -13,21 +13,13 @@ class NormalLoginForm extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         this.setState({ loading: true })
-        let { username, pwd, verifyInput } = values
-        api.verify.checkVerify(verifyInput).then(res => {
-          if (!res) {
-            message.error('验证码错误')
-            this.setState({ loading: false })
-            return
-          }
-          api.user.regist({ username, pwd }).then(res => {
-            message.success("注册成功!请登录")
-            this.props.history.push('/login')
-          }).catch(e => {
-            message.error(e.message)
-          }).finally(() => {
-            this.setState({ loading: false })
-          })
+        api.user.regist(values).then(res => {
+          message.success("注册成功!请登录")
+          this.props.history.push('/login')
+        }).catch(e => {
+          message.error(e.message)
+        }).finally(() => {
+          this.setState({ loading: false })
         })
       }
     })
